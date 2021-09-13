@@ -28,7 +28,7 @@ class Grid_Net(nn.Module):
 
     # input of velocity, cos and sin of angular velocity, and hidden state of cell activations
     def forward(self, inputs, place_cell_acts, head_dir_cell_acts):
-        initial_condition = torch.cat(place_cell_acts, head_dir_cell_acts, dim=1)
+        initial_condition = torch.cat((place_cell_acts, head_dir_cell_acts), dim=1)
         hidden_state = self.init_lstm_state(initial_condition)
         cell_state = self.init_lstm_cell(initial_condition)
         out, (hidden_state_out, cell_state_out) = self.rnn(inputs, (hidden_state, cell_state))
